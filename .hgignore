@@ -1,0 +1,6 @@
+glob:**resharper*
+glob:**.suo*
+glob:**output
+glob:**debug
+glob:**bin
+glob:**obj
