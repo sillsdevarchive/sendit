@@ -15,7 +15,7 @@ namespace SendIt
 		{
 			Application.EnableVisualStyles();
 			Application.SetCompatibleTextRenderingDefault(false);
-			var model = new ChooseTextViewModel(new TestChoiceProvider());
+			var model = new ChooseTextViewModel(new TestChoiceProvider(), new DummyFileProcessor());
 			Application.Run(new ChooseTextView(model));
 		}
 	}

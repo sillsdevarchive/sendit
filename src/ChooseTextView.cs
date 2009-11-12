@@ -15,14 +15,26 @@ namespace SendIt
 
 		void UpdateDisplay()
 		{
+			timer1.Enabled = false;
+			if (_model.ShouldReportSuccessAndClose)
+			{
+				MessageBox.Show("The text was given to the email system for delivery.");
+				Close();
+			}
 			_sendButton.Enabled = _model.CanSend;
+			_status.Text = _model.SendingStatus;
+			listBox1.Enabled = !_model.Busy;
+			timer1.Enabled = true;
+			Cursor = _model.Busy ? Cursors.WaitCursor: Cursors.Default;
+
 		}
 
 		private void _sendButton_Click(object sender, EventArgs e)
 		{
 			if(listBox1.SelectedItem == null)
 				return;
-			_model.SendPath();
+			Cursor = Cursors.WaitCursor;
+			_model.ExportAndZipAndSendEmailAsync();
 		}
 
 		private void listBox1_SelectedIndexChanged(object sender, EventArgs e)
@@ -43,6 +55,11 @@ namespace SendIt
 		private void _cancelButton_Click(object sender, EventArgs e)
 		{
 			this.Close();
+		}
+
+		private void timer1_Tick(object sender, EventArgs e)
+		{
+			UpdateDisplay();
 		}
 
 	}

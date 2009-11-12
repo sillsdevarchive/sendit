@@ -13,7 +13,7 @@ namespace SendIt
 	{
 		public IEnumerable<FileChoice> GetChoices()
 		{
-			foreach (var path in Directory.GetFiles(@"c:\dev\sendit"))
+			foreach (var path in Directory.GetFiles(@"C:\Users\John\Documents\Adapt It Work\Palaung-B to Rulai adaptations\Adaptations"))
 			{
 				yield return new FileChoice(path);
 			}
