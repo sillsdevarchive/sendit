@@ -121,6 +121,7 @@
     <Compile Include="SuccessView.Designer.cs">
       <DependentUpon>SuccessView.cs</DependentUpon>
     </Compile>
+    <Compile Include="SendItSetttings.cs" />
     <Compile Include="ZipStorer.cs" />
   </ItemGroup>
   <ItemGroup>

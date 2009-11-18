@@ -26,96 +26,12 @@ namespace SendIt.Properties {
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("")]
-        public string PathToAdaptationsFolder {
+        public SendItSetttings SendItSettings {
             get {
-                return ((string)(this["PathToAdaptationsFolder"]));
+                return ((SendItSetttings)(this["SendItSettings"]));
             }
             set {
-                this["PathToAdaptationsFolder"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("")]
-        public string SmtpClient {
-            get {
-                return ((string)(this["SmtpClient"]));
-            }
-            set {
-                this["SmtpClient"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("0")]
-        public int SmtpClientPort {
-            get {
-                return ((int)(this["SmtpClientPort"]));
-            }
-            set {
-                this["SmtpClientPort"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("")]
-        public string SmptLogin {
-            get {
-                return ((string)(this["SmptLogin"]));
-            }
-            set {
-                this["SmptLogin"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("")]
-        public string SmtpPassword {
-            get {
-                return ((string)(this["SmtpPassword"]));
-            }
-            set {
-                this["SmtpPassword"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("")]
-        public string FromAddress {
-            get {
-                return ((string)(this["FromAddress"]));
-            }
-            set {
-                this["FromAddress"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("")]
-        public string ToAddress {
-            get {
-                return ((string)(this["ToAddress"]));
-            }
-            set {
-                this["ToAddress"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("True")]
-        public bool SmtpUsesSsl {
-            get {
-                return ((bool)(this["SmtpUsesSsl"]));
-            }
-            set {
-                this["SmtpUsesSsl"] = value;
+                this["SendItSettings"] = value;
             }
         }
     }

@@ -66,13 +66,13 @@ namespace SendIt
 			//don't worry about certificates
 			ServicePointManager.ServerCertificateValidationCallback = delegate(object s, X509Certificate certificate, X509Chain chain, SslPolicyErrors sslPolicyErrors) { return true; };
 
-			var client = new System.Net.Mail.SmtpClient(Settings.Default.SmtpClient, Settings.Default.SmtpClientPort);
+			var client = new System.Net.Mail.SmtpClient(Settings.Default.SendItSettings.SmtpClient, Settings.Default.SendItSettings.SmtpClientPort);
 			client.DeliveryMethod = SmtpDeliveryMethod.Network;
-			client.EnableSsl = Settings.Default.SmtpUsesSsl;
+			client.EnableSsl = Settings.Default.SendItSettings.SmtpUsesSsl;
 
-			client.Credentials = new NetworkCredential(Settings.Default.SmptLogin, Settings.Default.SmtpPassword);
-			MailAddress from = new MailAddress(Settings.Default.FromAddress, Settings.Default.FromAddress);
-			MailAddress to = new MailAddress(Settings.Default.ToAddress, Settings.Default.ToAddress);
+			client.Credentials = new NetworkCredential(Settings.Default.SendItSettings.SmptLogin, Settings.Default.SendItSettings.SmtpPassword);
+			MailAddress from = new MailAddress(Settings.Default.SendItSettings.FromAddress, Settings.Default.SendItSettings.FromAddress);
+			MailAddress to = new MailAddress(Settings.Default.SendItSettings.ToAddress, Settings.Default.SendItSettings.ToAddress);
 			MailMessage message = new MailMessage(from, to);
 			message.Subject = SelectedPath.ToString();
 			Attachment file = new Attachment(zipPath);
@@ -159,16 +159,16 @@ namespace SendIt
 		public bool CheckSetupIsCompleteAndNotifyIfNeeded()
 		{
 
-		   var strings = new[] {Settings.Default.PathToAdaptationsFolder, Settings.Default.FromAddress, Settings.Default.ToAddress, Settings.Default.SmptLogin, Settings.Default.SmtpPassword};
+		   var strings = new[] {Settings.Default.SendItSettings.PathToAdaptationsFolder, Settings.Default.SendItSettings.FromAddress, Settings.Default.SendItSettings.ToAddress, Settings.Default.SendItSettings.SmptLogin, Settings.Default.SendItSettings.SmtpPassword};
 		   if (strings.Any(s => string.IsNullOrEmpty(s))
-					   || (default(int) == Settings.Default.SmtpClientPort))
+					   || (default(int) == Settings.Default.SendItSettings.SmtpClientPort))
 		   {
 			   MessageBox.Show(
 				  "Sorry, SendIt does not have all the information it needs to send.  Use the Setup button to add that information.");
 			   return false;
 		   }
 
-		   if (!Directory.Exists(Settings.Default.PathToAdaptationsFolder))
+		   if (!Directory.Exists(Settings.Default.SendItSettings.PathToAdaptationsFolder))
 		   {
 			   MessageBox.Show(
 				  "Sorry, the path to the adaptations folder is incorrect.  Use the Setup button to fix it.");
