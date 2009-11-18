@@ -60,6 +60,13 @@ namespace SendIt.Properties {
             }
         }
         
+        internal static System.Drawing.Bitmap Check46x46 {
+            get {
+                object obj = ResourceManager.GetObject("Check46x46", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
         internal static System.IO.UnmanagedMemoryStream error {
             get {
                 return ResourceManager.GetStream("error", resourceCulture);
@@ -72,9 +79,23 @@ namespace SendIt.Properties {
             }
         }
         
+        internal static System.Drawing.Bitmap lock13x16 {
+            get {
+                object obj = ResourceManager.GetObject("lock13x16", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
         internal static System.Drawing.Bitmap mail_message_new {
             get {
                 object obj = ResourceManager.GetObject("mail-message-new", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap preferences_system {
+            get {
+                object obj = ResourceManager.GetObject("preferences-system", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

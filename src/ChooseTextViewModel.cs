@@ -12,6 +12,8 @@ using System.Net.Security;
 using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Threading;
+using System.Windows.Forms;
+using SendIt.Properties;
 
 namespace SendIt
 {
@@ -25,6 +27,7 @@ namespace SendIt
 		{
 			_choiceProvider = choiceProvider;
 			_fileProcessor = fileProcessor;
+			AllowSetup = Control.ModifierKeys == Keys.Shift;
 		}
 
 		public IEnumerable<FileChoice> GetPathChoices()
@@ -60,15 +63,16 @@ namespace SendIt
 
 		private void SendEmail(string zipPath)
 		{
+			//don't worry about certificates
 			ServicePointManager.ServerCertificateValidationCallback = delegate(object s, X509Certificate certificate, X509Chain chain, SslPolicyErrors sslPolicyErrors) { return true; };
 
-			var client = new System.Net.Mail.SmtpClient("ap83.sil.org.pg", 465);
+			var client = new System.Net.Mail.SmtpClient(Settings.Default.SmtpClient, Settings.Default.SmtpClientPort);
 			client.DeliveryMethod = SmtpDeliveryMethod.Network;
-			client.EnableSsl = true;
+			client.EnableSsl = Settings.Default.SmtpUsesSsl;
 
-			client.Credentials = new NetworkCredential("j.hatton@sil.org.pg", "chiang99");
-			MailAddress from = new MailAddress("j.hatton@sil.org.pg", "john hatton");
-			MailAddress to = new MailAddress("j.hatton@sil.org.pg", "john hatton");
+			client.Credentials = new NetworkCredential(Settings.Default.SmptLogin, Settings.Default.SmtpPassword);
+			MailAddress from = new MailAddress(Settings.Default.FromAddress, Settings.Default.FromAddress);
+			MailAddress to = new MailAddress(Settings.Default.ToAddress, Settings.Default.ToAddress);
 			MailMessage message = new MailMessage(from, to);
 			message.Subject = SelectedPath.ToString();
 			Attachment file = new Attachment(zipPath);
@@ -121,7 +125,9 @@ namespace SendIt
 				{
 					player.Play();
 				}
-				SendingStatus = ((Exception)e.Result).Message + ": "+((Exception)e.Result).InnerException.Message;
+				SendingStatus = ((Exception) e.Result).Message;
+				if (null != ((Exception)e.Result).InnerException)
+					SendingStatus += ": " + ((Exception)e.Result).InnerException.Message;
 			}
 			else
 			{
@@ -146,6 +152,29 @@ namespace SendIt
 			{
 				return _worker != null && _worker.IsBusy;
 			}
+		}
+
+		public bool AllowSetup { get; set; }
+
+		public bool CheckSetupIsCompleteAndNotifyIfNeeded()
+		{
+
+		   var strings = new[] {Settings.Default.PathToAdaptationsFolder, Settings.Default.FromAddress, Settings.Default.ToAddress, Settings.Default.SmptLogin, Settings.Default.SmtpPassword};
+		   if (strings.Any(s => string.IsNullOrEmpty(s))
+					   || (default(int) == Settings.Default.SmtpClientPort))
+		   {
+			   MessageBox.Show(
+				  "Sorry, SendIt does not have all the information it needs to send.  Use the Setup button to add that information.");
+			   return false;
+		   }
+
+		   if (!Directory.Exists(Settings.Default.PathToAdaptationsFolder))
+		   {
+			   MessageBox.Show(
+				  "Sorry, the path to the adaptations folder is incorrect.  Use the Setup button to fix it.");
+			   return false;
+		   }
+			return true;
 		}
 	}
 }

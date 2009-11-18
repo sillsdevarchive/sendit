@@ -31,10 +31,11 @@ namespace SendIt
             this.components = new System.ComponentModel.Container();
             this.listBox1 = new System.Windows.Forms.ListBox();
             this.label1 = new System.Windows.Forms.Label();
-            this._sendButton = new System.Windows.Forms.Button();
             this._cancelButton = new System.Windows.Forms.Button();
             this._status = new System.Windows.Forms.Label();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
+            this._sendButton = new System.Windows.Forms.Button();
+            this._setupButton = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // listBox1
@@ -57,35 +58,20 @@ namespace SendIt
             this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label1.Location = new System.Drawing.Point(9, 21);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(209, 17);
+            this.label1.Size = new System.Drawing.Size(257, 17);
             this.label1.TabIndex = 1;
-            this.label1.Text = "Select the text to send on email:";
-            // 
-            // _sendButton
-            // 
-            this._sendButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this._sendButton.Image = global::SendIt.Properties.Resources.mail_message_new;
-            this._sendButton.Location = new System.Drawing.Point(166, 362);
-            this._sendButton.Name = "_sendButton";
-            this._sendButton.Size = new System.Drawing.Size(90, 32);
-            this._sendButton.TabIndex = 2;
-            this._sendButton.Text = "Send";
-            this._sendButton.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this._sendButton.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
-            this._sendButton.UseVisualStyleBackColor = true;
-            this._sendButton.Click += new System.EventHandler(this._sendButton_Click);
+            this.label1.Text = "Select the AdaptIt text to send on email:";
             // 
             // _cancelButton
             // 
             this._cancelButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this._cancelButton.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this._cancelButton.Location = new System.Drawing.Point(282, 362);
+            this._cancelButton.Location = new System.Drawing.Point(279, 362);
             this._cancelButton.Name = "_cancelButton";
-            this._cancelButton.Size = new System.Drawing.Size(73, 32);
+            this._cancelButton.Size = new System.Drawing.Size(76, 32);
             this._cancelButton.TabIndex = 2;
             this._cancelButton.Text = "Cancel";
             this._cancelButton.UseVisualStyleBackColor = true;
-            this._cancelButton.Click += new System.EventHandler(this._cancelButton_Click);
             // 
             // _status
             // 
@@ -104,23 +90,44 @@ namespace SendIt
             this.timer1.Interval = 300;
             this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
             // 
+            // _sendButton
+            // 
+            this._sendButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this._sendButton.Image = global::SendIt.Properties.Resources.mail_message_new;
+            this._sendButton.Location = new System.Drawing.Point(166, 362);
+            this._sendButton.Name = "_sendButton";
+            this._sendButton.Size = new System.Drawing.Size(90, 32);
+            this._sendButton.TabIndex = 2;
+            this._sendButton.Text = "Send";
+            this._sendButton.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this._sendButton.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
+            this._sendButton.UseVisualStyleBackColor = true;
+            this._sendButton.Click += new System.EventHandler(this._sendButton_Click);
+            // 
+            // _setupButton
+            // 
+            this._setupButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this._setupButton.Image = global::SendIt.Properties.Resources.lock13x16;
+            this._setupButton.Location = new System.Drawing.Point(15, 362);
+            this._setupButton.Name = "_setupButton";
+            this._setupButton.Size = new System.Drawing.Size(81, 32);
+            this._setupButton.TabIndex = 3;
+            this._setupButton.Text = "Setup...";
+            this._setupButton.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
+            this._setupButton.UseVisualStyleBackColor = true;
+            this._setupButton.Click += new System.EventHandler(this._setupButton_Click);
+            // 
             // ChooseTextView
             // 
-            this.AcceptButton = this._sendButton;
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.CancelButton = this._cancelButton;
-            this.ClientSize = new System.Drawing.Size(367, 406);
+            this.Controls.Add(this._setupButton);
             this.Controls.Add(this._cancelButton);
             this.Controls.Add(this._sendButton);
             this.Controls.Add(this._status);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.listBox1);
-            this.MaximizeBox = false;
-            this.MinimizeBox = false;
             this.Name = "ChooseTextView";
-            this.Text = "SendIt";
-            this.Load += new System.EventHandler(this.Form1_Load);
+            this.Size = new System.Drawing.Size(367, 406);
+            this.VisibleChanged += new System.EventHandler(this.Form1_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -131,9 +138,10 @@ namespace SendIt
         private System.Windows.Forms.ListBox listBox1;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Button _sendButton;
-        private System.Windows.Forms.Button _cancelButton;
         private System.Windows.Forms.Label _status;
         private System.Windows.Forms.Timer timer1;
+        private System.Windows.Forms.Button _setupButton;
+        public System.Windows.Forms.Button _cancelButton;
     }
 }
 

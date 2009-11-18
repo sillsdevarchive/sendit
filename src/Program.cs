@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
+using SendIt.Properties;
 
 namespace SendIt
 {
@@ -15,8 +16,11 @@ namespace SendIt
 		{
 			Application.EnableVisualStyles();
 			Application.SetCompatibleTextRenderingDefault(false);
-			var model = new ChooseTextViewModel(new TestChoiceProvider(), new DummyFileProcessor());
-			Application.Run(new ChooseTextView(model));
+			Settings.Default.PathToAdaptationsFolder =   @"C:\Users\John\Documents\Adapt It Work\Palaung-B to Rulai adaptations\Adaptations";
+
+			var model = new ChooseTextViewModel(new TestChoiceProvider(Settings.Default.PathToAdaptationsFolder),
+												new AdaptItCommandLineDriver());
+			Application.Run(new Shell(new ChooseTextView(model)));
 		}
 	}
 }

@@ -11,9 +11,16 @@ namespace SendIt
 
 	public class TestChoiceProvider : IChoiceProvider
 	{
+		private readonly string _pathToAdaptationsFolder;
+
+		public TestChoiceProvider(string pathToAdaptationsFolder)
+		{
+			_pathToAdaptationsFolder = pathToAdaptationsFolder;
+		}
+
 		public IEnumerable<FileChoice> GetChoices()
 		{
-			foreach (var path in Directory.GetFiles(@"C:\Users\John\Documents\Adapt It Work\Palaung-B to Rulai adaptations\Adaptations"))
+			foreach (var path in Directory.GetFiles(_pathToAdaptationsFolder))
 			{
 				yield return new FileChoice(path);
 			}
