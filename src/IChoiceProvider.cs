@@ -11,16 +11,22 @@ namespace SendIt
 
 	public class TestChoiceProvider : IChoiceProvider
 	{
-		private readonly string _pathToAdaptationsFolder;
+		private readonly GetPathToAdaptationsFoder _pathToAdaptationsFolder;
 
-		public TestChoiceProvider(string pathToAdaptationsFolder)
+		public delegate string GetPathToAdaptationsFoder();
+		public TestChoiceProvider(GetPathToAdaptationsFoder pathToAdaptationsFolder)
 		{
 			_pathToAdaptationsFolder = pathToAdaptationsFolder;
 		}
 
 		public IEnumerable<FileChoice> GetChoices()
 		{
-			foreach (var path in Directory.GetFiles(_pathToAdaptationsFolder))
+			string folderPath = _pathToAdaptationsFolder();
+			if (folderPath == null || !Directory.Exists(folderPath))
+			{
+				yield break;
+			}
+			foreach (var path in Directory.GetFiles(folderPath))
 			{
 				yield return new FileChoice(path);
 			}

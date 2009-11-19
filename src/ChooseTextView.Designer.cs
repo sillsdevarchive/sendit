@@ -93,7 +93,7 @@ namespace SendIt
             // _sendButton
             // 
             this._sendButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this._sendButton.Image = global::SendIt.Properties.Resources.mail_message_new;
+            this._sendButton.Image = global::SendIt.Properties.Resources.send16x16;
             this._sendButton.Location = new System.Drawing.Point(166, 362);
             this._sendButton.Name = "_sendButton";
             this._sendButton.Size = new System.Drawing.Size(90, 32);

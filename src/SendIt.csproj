@@ -12,6 +12,7 @@
     <AssemblyName>SendIt</AssemblyName>
     <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
+    <ApplicationIcon>SendIt.ico</ApplicationIcon>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -35,6 +36,7 @@
     <Reference Include="System.Core">
       <RequiredTargetFramework>3.5</RequiredTargetFramework>
     </Reference>
+    <Reference Include="System.Design" />
     <Reference Include="System.Net">
       <RequiredTargetFramework>3.5</RequiredTargetFramework>
     </Reference>
@@ -61,15 +63,6 @@
     <Compile Include="FileChoice.cs" />
     <Compile Include="IChoiceProvider.cs" />
     <Compile Include="IFileProcessor.cs" />
-    <Compile Include="ini\IniDocument.cs" />
-    <Compile Include="ini\IniException.cs" />
-    <Compile Include="ini\IniItem.cs" />
-    <Compile Include="ini\IniReader.cs" />
-    <Compile Include="ini\IniSection.cs" />
-    <Compile Include="ini\IniSectionCollection.cs" />
-    <Compile Include="ini\IniWriter.cs" />
-    <Compile Include="ini\OrderedList.cs" />
-    <Compile Include="ini\OrderedListEnumerator.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="ChooseTextView.resx">
@@ -138,6 +131,9 @@
     <Content Include="AdaptIt_ForSendIt.exe">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <None Include="send16x16.png" />
+    <Content Include="SendIt.ico" />
+    <None Include="sendit16x16.png" />
     <None Include="Resources\Check46x46.png" />
     <None Include="Resources\lock13x16.png" />
     <None Include="Resources\preferences-system.png" />

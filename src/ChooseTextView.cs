@@ -61,6 +61,11 @@ namespace SendIt
 
 		private void Form1_Load(object sender, EventArgs e)
 		{
+			Refresh();
+		}
+
+		private void Refresh()
+		{
 			foreach (var choice in _model.GetPathChoices())
 			{
 				listBox1.Items.Add(choice);
@@ -78,19 +83,8 @@ namespace SendIt
 
 		private void _setupButton_Click(object sender, EventArgs e)
 		{
-			if (!_model.AllowSetup)
-			{
-				MessageBox.Show(
-					"Changing the settings can break SendIt. If you are sure you know about your email accounts, passwords, and locations of AdaptIt Files, etc., then restart SendIt with the Shift key held down, and then you will be able to change the settings.");
-				return;
-			}
-
-			using (var dlg = new SettingsEditor())
-			{
-				DialogResult result = dlg.ShowDialog();
-				if (System.Windows.Forms.DialogResult.Cancel != result)
-					Settings.Default.Save();
-			}
+			_model.SetupClick();
+			Refresh();
 		}
 
 	}

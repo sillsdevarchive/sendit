@@ -176,5 +176,22 @@ namespace SendIt
 		   }
 			return true;
 		}
+
+		public void SetupClick()
+		{
+			if (!AllowSetup)
+			{
+				MessageBox.Show(
+					"Changing the settings can break SendIt. If you are sure you know about your email accounts, passwords, and locations of AdaptIt Files, etc., then restart SendIt with the Shift key held down, and then you will be able to change the settings.");
+				return;
+			}
+
+			using (var dlg = new SettingsEditor())
+			{
+				DialogResult result = dlg.ShowDialog();
+				if (System.Windows.Forms.DialogResult.Cancel != result)
+					Settings.Default.Save();
+			}
+		}
 	}
 }

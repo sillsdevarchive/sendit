@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 using System.Text;
+using System.Windows.Forms.Design;
 
 namespace SendIt
 {
@@ -10,6 +11,7 @@ namespace SendIt
 	public class SendItSetttings
 	{
 		[Category("AdaptIt")]
+		[Editor(typeof(System.Windows.Forms.Design.FolderNameEditor), typeof(System.Drawing.Design.UITypeEditor))]
 		[Description(@"E.g., C:\Users\John\Documents\Adapt It Work\Palaung-B to Rulai adaptations")]
 		public string PathToAdaptationsFolder
 		{

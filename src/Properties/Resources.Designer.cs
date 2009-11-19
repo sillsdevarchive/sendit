@@ -99,5 +99,19 @@ namespace SendIt.Properties {
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
+        
+        internal static System.Drawing.Bitmap send16x16 {
+            get {
+                object obj = ResourceManager.GetObject("send16x16", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap sendit16x16 {
+            get {
+                object obj = ResourceManager.GetObject("sendit16x16", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
     }
 }
