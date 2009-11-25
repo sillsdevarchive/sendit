@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Diagnostics;
 using System.IO;
 using System.IO.Compression;
 using System.Linq;
@@ -63,15 +64,44 @@ namespace SendIt
 
 		private void SendEmail(string zipPath)
 		{
+			if (!string.IsNullOrEmpty(SendItSettings.Singleton.MailServerPath))
+			{
+				if (File.Exists(SendItSettings.Singleton.MailServerPath))
+				{
+					string expectedProcessName = Path.GetFileNameWithoutExtension(SendItSettings.Singleton.MailServerPath);
+					var serverIsRunning = System.Diagnostics.Process.GetProcessesByName(expectedProcessName).Length > 0;
+					if (!serverIsRunning)
+					{
+						string fileName = Path.GetFileName(SendItSettings.Singleton.MailServerPath);
+						SendingStatus = "Starting " + fileName + "...";
+						ProcessStartInfo startInfo = new ProcessStartInfo(SendItSettings.Singleton.MailServerPath);
+						startInfo.WorkingDirectory = Path.GetDirectoryName(SendItSettings.Singleton.MailServerPath);
+						startInfo.UseShellExecute = true;
+						var  proc = Process.Start(startInfo);
+						Thread.Sleep(5000);
+						serverIsRunning = System.Diagnostics.Process.GetProcessesByName(expectedProcessName).Length > 0;
+						if (!serverIsRunning)
+						{
+							throw new ApplicationException("SendIt could not start email server (" + fileName +
+														   "). Restart your computer and try again.");
+						}
+					}
+				}
+			}
 			//don't worry about certificates
-			ServicePointManager.ServerCertificateValidationCallback = delegate(object s, X509Certificate certificate, X509Chain chain, SslPolicyErrors sslPolicyErrors) { return true; };
+			ServicePointManager.ServerCertificateValidationCallback =
+				delegate(object s, X509Certificate certificate, X509Chain chain, SslPolicyErrors sslPolicyErrors)
+					{ return true; };
 
-			var client = new System.Net.Mail.SmtpClient(SendItSettings.Singleton.SmtpClient, SendItSettings.Singleton.SmtpClientPort);
+			var client = new System.Net.Mail.SmtpClient(SendItSettings.Singleton.SmtpClient,
+														SendItSettings.Singleton.SmtpClientPort);
 			client.DeliveryMethod = SmtpDeliveryMethod.Network;
 			client.EnableSsl = SendItSettings.Singleton.SmtpUsesSsl;
 
-			client.Credentials = new NetworkCredential(SendItSettings.Singleton.SmptLogin, SendItSettings.Singleton.SmtpPassword);
-			MailAddress from = new MailAddress(SendItSettings.Singleton.FromAddress, SendItSettings.Singleton.FromAddress);
+			client.Credentials = new NetworkCredential(SendItSettings.Singleton.SmptLogin,
+													   SendItSettings.Singleton.SmtpPassword);
+			MailAddress from = new MailAddress(SendItSettings.Singleton.FromAddress,
+											   SendItSettings.Singleton.FromAddress);
 			MailAddress to = new MailAddress(SendItSettings.Singleton.ToAddress, SendItSettings.Singleton.ToAddress);
 			MailMessage message = new MailMessage(from, to);
 			message.Subject = SelectedPath.ToString();
@@ -80,7 +110,15 @@ namespace SendIt
 			//client.SendCompleted += new SendCompletedEventHandler(client_SendCompleted);
 
 			SendingStatus = "Giving Message To Mail Server...";
-			client.Send(message);
+			try
+			{
+				client.Send(message);
+			}
+			catch(Exception error)
+			{
+				MessageBox.Show("SendIt could not talk the email server/program. You might try restarting your computer before trying again.\r\n"+error.Message, "SendIt Problem", MessageBoxButtons.OK, MessageBoxIcon.Error);
+				throw;
+			}
 
 		}
 

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.IO;
 using System.Text;
 using System.Windows.Forms;
 using SendIt.Properties;
@@ -29,6 +30,13 @@ namespace SendIt
 			SendItSettings.Singleton.SmtpUsesSsl = false;
 			SendItSettings.Singleton.SmtpClient = "127.0.0.1";
 			SendItSettings.Singleton.SmtpClientPort = 25;
+			SendItSettings.Singleton.MailServerPath = @"c:\uuplus\mailer.exe";
+			if (!File.Exists(SendItSettings.Singleton.MailServerPath))
+			{
+				//ah well, better to not pretend
+				SendItSettings.Singleton.MailServerPath = "";
+			}
+
 			propertyGrid1.Refresh();
 		}
 	}

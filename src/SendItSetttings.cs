@@ -55,6 +55,7 @@ namespace SendIt
 		{
 			var folder =Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData);
 			folder = Path.Combine(folder, "SendIt");
+			Directory.CreateDirectory(folder);
 			return Path.Combine(folder, "settings.xml");
 		}
 
@@ -110,6 +111,16 @@ namespace SendIt
 
 		[Category("Email Message")]
 		public string ToAddress
+		{
+			get;
+			set;
+		}
+
+
+		[Category("Email Server")]
+		[Editor(typeof(System.Windows.Forms.Design.FolderNameEditor), typeof(System.Drawing.Design.UITypeEditor))]
+		[Description(@"Mail Server application (if applicable).  E.g., C:\UUPlus\mailer.exe")]
+		public string MailServerPath
 		{
 			get;
 			set;
