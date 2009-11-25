@@ -22,16 +22,5 @@ namespace SendIt.Properties {
                 return defaultInstance;
             }
         }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        public SendItSettings SendItSettings {
-            get {
-                return ((SendItSettings)(this["SendItSettings"]));
-            }
-            set {
-                this["SendItSettings"] = value;
-            }
-        }
     }
 }

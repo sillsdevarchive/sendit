@@ -60,7 +60,7 @@ namespace SendIt
 
 		[Category("AdaptIt")]
 		[Editor(typeof(System.Windows.Forms.Design.FolderNameEditor), typeof(System.Drawing.Design.UITypeEditor))]
-		[Description(@"E.g., C:\Users\John\Documents\Adapt It Work\Palaung-B to Rulai adaptations")]
+		[Description(@"E.g., C:\Users\John\Documents\Adapt It Work\Palaung-B to Rulai adaptations\Adaptations")]
 		public string PathToAdaptationsFolder
 		{
 			get;
