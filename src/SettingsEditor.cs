@@ -15,7 +15,7 @@ namespace SendIt
 		public SettingsEditor()
 		{
 			InitializeComponent();
-			this.propertyGrid1.SelectedObject = Settings.Default.SendItSettings;
+			this.propertyGrid1.SelectedObject = SendItSettings.Singleton;
 		}
 
 		private void button1_Click(object sender, EventArgs e)
@@ -26,9 +26,9 @@ namespace SendIt
 
 		private void _setUUPlusPresets_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
 		{
-			Settings.Default.SendItSettings.SmtpUsesSsl = false;
-			Settings.Default.SendItSettings.SmtpClient = "127.0.0.1";
-			Settings.Default.SendItSettings.SmtpClientPort = 25;
+			SendItSettings.Singleton.SmtpUsesSsl = false;
+			SendItSettings.Singleton.SmtpClient = "127.0.0.1";
+			SendItSettings.Singleton.SmtpClientPort = 25;
 			propertyGrid1.Refresh();
 		}
 	}

@@ -66,6 +66,7 @@ namespace SendIt
 
 		private void Refresh()
 		{
+			listBox1.Items.Clear();
 			foreach (var choice in _model.GetPathChoices())
 			{
 				listBox1.Items.Add(choice);

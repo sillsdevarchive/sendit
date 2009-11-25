@@ -66,13 +66,13 @@ namespace SendIt
 			//don't worry about certificates
 			ServicePointManager.ServerCertificateValidationCallback = delegate(object s, X509Certificate certificate, X509Chain chain, SslPolicyErrors sslPolicyErrors) { return true; };
 
-			var client = new System.Net.Mail.SmtpClient(Settings.Default.SendItSettings.SmtpClient, Settings.Default.SendItSettings.SmtpClientPort);
+			var client = new System.Net.Mail.SmtpClient(SendItSettings.Singleton.SmtpClient, SendItSettings.Singleton.SmtpClientPort);
 			client.DeliveryMethod = SmtpDeliveryMethod.Network;
-			client.EnableSsl = Settings.Default.SendItSettings.SmtpUsesSsl;
+			client.EnableSsl = SendItSettings.Singleton.SmtpUsesSsl;
 
-			client.Credentials = new NetworkCredential(Settings.Default.SendItSettings.SmptLogin, Settings.Default.SendItSettings.SmtpPassword);
-			MailAddress from = new MailAddress(Settings.Default.SendItSettings.FromAddress, Settings.Default.SendItSettings.FromAddress);
-			MailAddress to = new MailAddress(Settings.Default.SendItSettings.ToAddress, Settings.Default.SendItSettings.ToAddress);
+			client.Credentials = new NetworkCredential(SendItSettings.Singleton.SmptLogin, SendItSettings.Singleton.SmtpPassword);
+			MailAddress from = new MailAddress(SendItSettings.Singleton.FromAddress, SendItSettings.Singleton.FromAddress);
+			MailAddress to = new MailAddress(SendItSettings.Singleton.ToAddress, SendItSettings.Singleton.ToAddress);
 			MailMessage message = new MailMessage(from, to);
 			message.Subject = SelectedPath.ToString();
 			Attachment file = new Attachment(zipPath);
@@ -88,7 +88,7 @@ namespace SendIt
 		{
 			var zipPath = Path.Combine(Path.GetTempPath(), Path.GetFileNameWithoutExtension(SelectedPath.Path)+".zip");
 			var zip = ZipStorer.Create(zipPath, string.Empty);
-			zip.AddFile(ZipStorer.Compression.Store, processedFile, Path.GetFileName(processedFile), string.Empty);
+			zip.AddFile(ZipStorer.Compression.Deflate, processedFile, Path.GetFileName(processedFile), string.Empty);
 			zip.Close();
 			return zipPath;
 		}
@@ -159,16 +159,16 @@ namespace SendIt
 		public bool CheckSetupIsCompleteAndNotifyIfNeeded()
 		{
 
-		   var strings = new[] {Settings.Default.SendItSettings.PathToAdaptationsFolder, Settings.Default.SendItSettings.FromAddress, Settings.Default.SendItSettings.ToAddress, Settings.Default.SendItSettings.SmptLogin, Settings.Default.SendItSettings.SmtpPassword};
+		   var strings = new[] {SendItSettings.Singleton.PathToAdaptationsFolder, SendItSettings.Singleton.FromAddress, SendItSettings.Singleton.ToAddress, SendItSettings.Singleton.SmptLogin, SendItSettings.Singleton.SmtpPassword};
 		   if (strings.Any(s => string.IsNullOrEmpty(s))
-					   || (default(int) == Settings.Default.SendItSettings.SmtpClientPort))
+					   || (default(int) == SendItSettings.Singleton.SmtpClientPort))
 		   {
 			   MessageBox.Show(
 				  "Sorry, SendIt does not have all the information it needs to send.  Use the Setup button to add that information.");
 			   return false;
 		   }
 
-		   if (!Directory.Exists(Settings.Default.SendItSettings.PathToAdaptationsFolder))
+		   if (!Directory.Exists(SendItSettings.Singleton.PathToAdaptationsFolder))
 		   {
 			   MessageBox.Show(
 				  "Sorry, the path to the adaptations folder is incorrect.  Use the Setup button to fix it.");
@@ -190,7 +190,7 @@ namespace SendIt
 			{
 				DialogResult result = dlg.ShowDialog();
 				if (System.Windows.Forms.DialogResult.Cancel != result)
-					Settings.Default.Save();
+					SendItSettings.Singleton.Save();
 			}
 		}
 	}

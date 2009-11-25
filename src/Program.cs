@@ -18,7 +18,7 @@ namespace SendIt
 			Application.SetCompatibleTextRenderingDefault(false);
 
 			//this is done as a delegate so the provider could updates if the settings are updated
-			var model = new ChooseTextViewModel(new TestChoiceProvider(() => Settings.Default.SendItSettings.PathToAdaptationsFolder),
+			var model = new ChooseTextViewModel(new TestChoiceProvider(() => SendItSettings.Singleton.PathToAdaptationsFolder),
 				new AdaptItCommandLineDriver());
 			Application.Run(new Shell(new ChooseTextView(model)));
 		}

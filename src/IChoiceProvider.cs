@@ -26,7 +26,7 @@ namespace SendIt
 			{
 				yield break;
 			}
-			foreach (var path in Directory.GetFiles(folderPath))
+			foreach (var path in Directory.GetFiles(folderPath, "*.xml"))
 			{
 				yield return new FileChoice(path);
 			}
