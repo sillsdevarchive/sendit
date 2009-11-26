@@ -28,7 +28,8 @@ namespace SendIt
 			}
 			foreach (var path in Directory.GetFiles(folderPath, "*.xml"))
 			{
-				yield return new FileChoice(path);
+				if(!path.ToLower().Contains(".bak"))//e.g,, foo.BAK.XML
+					yield return new FileChoice(path);
 			}
 		}
 	}
